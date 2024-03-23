@@ -1,0 +1,10 @@
+.Wrapper {
+	width: 100%;
+	height: var(--navbar-height);
+	min-height: var(--navbar-height);
+	display: flex;
+	align-items: center;
+	padding: 0 var(--padding-small);
+	background-color: var(--card-color);
+	border-bottom: 1px solid var(--border-color);
+}

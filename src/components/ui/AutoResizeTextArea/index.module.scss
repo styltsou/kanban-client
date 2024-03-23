@@ -1,0 +1,25 @@
+.Wrapper {
+	position: relative;
+	z-index: 0;
+	width: 100%;
+
+	place-content: center;
+
+	>* {
+		grid-area: 1 / 1;
+	}
+
+	.ReplicatedText {
+		width: 100%;
+		z-index: 1;
+		visibility: hidden;
+	}
+
+	.Textarea {
+		position: absolute;
+		top: 0;
+		height: 100%;
+		resize: none;
+		z-index: 2;
+	}
+}

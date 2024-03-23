@@ -1,0 +1,75 @@
+@import '@radix-ui/colors/gray.css';
+@import '@radix-ui/colors/gray-dark.css';
+@import '@radix-ui/colors/slate.css';
+@import '@radix-ui/colors/slate-dark.css';
+@import '@radix-ui/colors/violet.css';
+@import '@radix-ui/colors/violet-dark.css';
+@import '@radix-ui/colors/black-alpha.css';
+@import '@radix-ui/colors/white-alpha.css';
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+
+  // COLORS
+  --accent-color: var(--violet-11);
+  --accent-color-hover: var(--violet-9);
+
+  --bg-color: var(--slate-3);
+  --bg-color-hover: var(--slate-6);
+  --bg-color-text: var(--slate-11);
+
+  --card-color: var(--slate-1);
+  --card-color-hover: var(--slate-4);
+  --card-color-text: var(--slate-12);
+
+  --border-color: var(--slate-5);
+  // --seperator-color: var(--slate-5);
+  --tooltip-bg: var(--slate-12);
+  --tooltip-text: var(--slate-3);
+
+  --color-overlay: var(--black-a10);
+
+  // SIZES
+  --sidebar-width: 15rem;
+  --navbar-height: 3rem;
+
+  --padding-small: 1rem;
+}
+
+html.dark {
+  --bg-color: var(--slate-1);
+  --bg-color-hover: var(--slate-4);
+  --bg-color-text: var(--slate-12);
+
+  --card-color: var(--slate-3);
+  --card-color-hover: var(--slate-6);
+  --card-color-text: var(--slate-11);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+}
+
+input {
+  font-family: Inter;
+}
+
+// button:focus,
+// button:focus-visible {
+//   outline: 4px auto -webkit-focus-ring-color;
+// }
