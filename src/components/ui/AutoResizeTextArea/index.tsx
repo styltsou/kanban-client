@@ -46,6 +46,15 @@ export const AutoResizeTextarea: React.FC<AutoResizeTextareaProps> = ({
     onChange(event);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      e.currentTarget?.form?.dispatchEvent(
+        new Event('submit', { cancelable: true }),
+      );
+    }
+  };
+
   return (
     <div className={classes.Wrapper}>
       <div className={cn(classes.ReplicatedText, className)} style={rest.style}>
@@ -56,6 +65,7 @@ export const AutoResizeTextarea: React.FC<AutoResizeTextareaProps> = ({
         className={cn(classes.Textarea, className)}
         value={value}
         onChange={handleChange}
+        onKeyDown={handleKeyDown}
         {...rest}
       />
     </div>

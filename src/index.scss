@@ -26,6 +26,9 @@
   --bg-color-hover: var(--slate-6);
   --bg-color-text: var(--slate-11);
 
+  --transparent-bg-color: var(--white-a6);
+  --transparent-bg-color-hover: var(--white-a7);
+
   --card-color: var(--slate-1);
   --card-color-hover: var(--slate-4);
   --card-color-text: var(--slate-12);
@@ -40,6 +43,7 @@
   // SIZES
   --sidebar-width: 15rem;
   --navbar-height: 3rem;
+  --column-width: 20rem;
 
   --padding-small: 1rem;
 }
@@ -48,6 +52,9 @@ html.dark {
   --bg-color: var(--slate-1);
   --bg-color-hover: var(--slate-4);
   --bg-color-text: var(--slate-12);
+
+  --transparent-bg-color: var(--black-a6);
+  --transparent-bg-color-hover: var(--black-a7);
 
   --card-color: var(--slate-3);
   --card-color-hover: var(--slate-6);
@@ -68,8 +75,3 @@ button {
 input {
   font-family: Inter;
 }
-
-// button:focus,
-// button:focus-visible {
-//   outline: 4px auto -webkit-focus-ring-color;
-// }
