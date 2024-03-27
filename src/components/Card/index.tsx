@@ -6,7 +6,7 @@ import classes from './index.module.scss';
 import { useKeybinding } from '@/hooks/useKeybinding';
 import { CardForm } from '../CardForm';
 import { OptionsMenu } from './OptionsMenu';
-import { Link } from '@tanstack/react-router';
+import { useNavigate } from '@tanstack/react-router';
 
 const variants = {
   initial: { opacity: 0 },
@@ -17,6 +17,8 @@ const variants = {
 export const Card: React.FC<{ card: { id: string; description: string } }> = ({
   card,
 }) => {
+  const navigate = useNavigate();
+
   const [isEditMenuOpen, setIsEditMenuOpen] = useState<boolean>(false);
 
   const [cardPosition, setCardPosition] = useState<{ x: number; y: number }>({
@@ -29,6 +31,8 @@ export const Card: React.FC<{ card: { id: string; description: string } }> = ({
   });
 
   const handleEditButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+
     const cardElement = e.currentTarget.closest(`#${card.id}`);
 
     const x = cardElement?.getBoundingClientRect().left || 0;
@@ -49,10 +53,10 @@ export const Card: React.FC<{ card: { id: string; description: string } }> = ({
   // NOTE: This loading state will be redundant when using tanstack
   const [isSaveLoading, setIsSaveLoading] = useState<boolean>(false);
   // * Mock the function for know
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleSaveEdit = (value: string) => {
     setIsSaveLoading(true);
     setTimeout(() => {
+      console.log(value);
       setIsSaveLoading(false);
       setIsEditMenuOpen(false);
     }, 2000);
@@ -62,10 +66,16 @@ export const Card: React.FC<{ card: { id: string; description: string } }> = ({
 
   return (
     <>
-      <Link
+      <div
         className={classes.CardContainer}
         id={card.id}
-        search={{ cardId: card.id }}
+        onClick={() =>
+          navigate({
+            search: {
+              cardId: card.id,
+            },
+          })
+        }
       >
         <p className={classes.Content}>{card.description}</p>
         <OptionsMenu
@@ -80,7 +90,7 @@ export const Card: React.FC<{ card: { id: string; description: string } }> = ({
             <Pencil1Icon />
           </button>
         </OptionsMenu>
-      </Link>
+      </div>
       <AnimatePresence>
         {isEditMenuOpen && (
           <Portal.Root>

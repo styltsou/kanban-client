@@ -1,5 +1,6 @@
 .Wrapper {
 	width: var(--column-width);
+	min-width: var(--column-width);
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -8,7 +9,7 @@
 	background-color: var(--bg-color);
 	border-radius: 10px;
 	overflow: hidden;
-	max-height: calc(100dvh - var(--navbar-height) - 2 * var(--padding-small));
+	max-height: 100%;
 
 	.ColumnTitleWrapper {
 		width: 100%;

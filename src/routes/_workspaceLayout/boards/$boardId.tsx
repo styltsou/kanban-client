@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/Buttons';
 import { CardModal } from '@/components/CardModal';
 import { useKeybinding } from '@/hooks/useKeybinding';
 import { useOnClickOutside } from '@/hooks/useOnClickOutside';
+import { BoardTopBar } from '@/components/BoardTopBar';
 
 const cards = [
   {
@@ -136,7 +137,7 @@ function Board(): JSX.Element {
     },
     {
       title: 'In Progress',
-      cards: cards.slice(0, 6),
+      cards: cards.slice(0, 12),
     },
   ]);
 
@@ -154,7 +155,7 @@ function Board(): JSX.Element {
       },
     ]);
 
-    setIsAddingColumn(false);
+    setColumnTitle('');
   };
 
   // const handleTextreaKeyDown = (
@@ -175,8 +176,9 @@ function Board(): JSX.Element {
   useKeybinding('Escape', () => setIsAddingColumn(false));
 
   return (
-    <>
-      <div className={classes.MainWrapper}>
+    <div className={classes.Wrapper}>
+      <BoardTopBar boardName="Test Board" boardId="board32" />
+      <div className={classes.BoardWrapper}>
         {columns.map(column => (
           <Column
             key={column.title}
@@ -216,6 +218,6 @@ function Board(): JSX.Element {
         )}
       </div>
       <CardModal />
-    </>
+    </div>
   );
 }

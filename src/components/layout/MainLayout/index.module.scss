@@ -1,0 +1,15 @@
+.AppWrapper {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	// height: 100dvh;
+	max-height: 100dvh;
+	overflow: hidden;
+
+	.Main {
+		width: 100%;
+		max-height: calc(100% - var(--navbar-height));
+		overflow-y: auto;
+	}
+
+}

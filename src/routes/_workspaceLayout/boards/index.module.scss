@@ -1,80 +1,90 @@
-.MainWrapper {
-	// min-width: 100%;
-	display: flex;
-	gap: var(--padding-small);
-	align-items: flex-start;
-	justify-content: flex-start;
-	padding: var(--padding-small);
-	background-color: #272643;
-	// height: calc(100dvh - var(--navbar-height));
+.Wrapper {
+	// display: flex;
+	// flex-direction: column;
 	height: 100%;
-	overflow-x: auto;
+	width: 100%;
+	position: relative;
+	background-color: blue;
+	// border: 1px solid purple;
 
-	.AddColumnButton {
-		background-color: var(--transparent-bg-color);
-		color: var(--bg-color-text);
-		border-radius: 10px;
-		padding: var(--padding-small);
-		font-size: 1rem;
-		font-weight: 400;
-		width: var(--column-width);
+	.BoardWrapper {
+		width: 100%;
 		display: flex;
+		gap: var(--padding-small);
+		align-items: flex-start;
 		justify-content: flex-start;
-		align-items: center;
-		cursor: pointer;
-		transition: background-color 0.1s ease-in;
+		padding: var(--padding-small);
+		height: calc(100% - var(--board-navbar-height));
+		overflow-x: auto;
 
-		&>span {
-			margin-right: 0.25rem;
-		}
-
-		&:hover {
-			background-color: var(--transparent-bg-color-hover);
-		}
-	}
-
-	// TODO: Need to make a generic input width default styles
-	.AddColumnForm {
-		width: var(--column-width);
-		background-color: var(--bg-color);
-		border-radius: 10px;
-		padding: 0.7rem 0.6rem;
-
-		&>input {
-			width: 100%;
+		.AddColumnButton {
+			min-width: var(--column-width);
+			background-color: var(--transparent-bg-color);
+			color: var(--bg-color-text);
+			border-radius: 10px;
+			padding: var(--padding-small);
 			font-size: 1rem;
-			font-weight: bold;
-			color: var(--card-color-text);
-			background-color: var(--card-color);
-			border-radius: 7px;
-			padding: 0.1rem 0.3rem;
-			border: none;
-			outline: 2px solid transparent;
-			line-height: 1.5;
-			// height: 2rem;
-
-			&:focus {
-				outline-color: var(--accent-color);
-			}
-		}
-
-		.AddColumnFormButtonsWrapper {
+			font-weight: 400;
+			width: var(--column-width);
 			display: flex;
 			justify-content: flex-start;
 			align-items: center;
-			margin-top: 0.6rem;
+			cursor: pointer;
+			transition: background-color 0.1s ease-in;
 
-			&>button:last-child {
-				margin-left: 0.3rem;
-				cursor: pointer;
-				background-color: transparent;
-				padding: 0.6rem;
-				line-height: 0.7;
+			&>span {
+				margin-right: 0.25rem;
+			}
+
+			&:hover {
+				background-color: var(--transparent-bg-color-hover);
+			}
+		}
+
+		// TODO: Need to make a generic input width default styles
+		.AddColumnForm {
+			width: var(--column-width);
+			min-width: var(--column-width);
+			background-color: var(--bg-color);
+			border-radius: 10px;
+			padding: 0.7rem 0.6rem;
+
+			&>input {
+				width: 100%;
+				font-size: 1rem;
+				font-weight: bold;
+				color: var(--card-color-text);
+				background-color: var(--card-color);
 				border-radius: 7px;
-				color: var(--bg-color-text);
+				padding: 0.1rem 0.3rem;
+				border: none;
+				outline: 2px solid transparent;
+				line-height: 1.5;
+				// height: 2rem;
 
-				&:hover {
-					background-color: var(--bg-color-hover);
+				&:focus {
+					outline-color: var(--accent-color);
+				}
+			}
+
+			.AddColumnFormButtonsWrapper {
+				display: flex;
+				justify-content: flex-start;
+				align-items: center;
+				margin-top: 0.6rem;
+
+				&>button:last-child {
+					margin-left: 0.3rem;
+					cursor: pointer;
+					background-color: transparent;
+					padding: 0.6rem;
+					line-height: 0.7;
+					border-radius: 7px;
+					color: var(--bg-color-text);
+
+					&:hover {
+						background-color: var(--bg-color-hover);
+					}
 				}
 			}
 		}

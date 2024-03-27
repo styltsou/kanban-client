@@ -1,18 +1,12 @@
 import { Outlet } from '@tanstack/react-router';
-import { Navbar } from './Navbar';
 import { Sidebar } from './Sidebar';
 import classes from './index.module.scss';
 
 export const WorkspaceLayout: React.FC = () => {
   return (
-    <div className={classes.AppShellGrid}>
+    <div className={classes.WorkspaceWrapper}>
       <Sidebar />
-      <div className={classes.MainWrapper}>
-        <Navbar />
-        <main className={classes.ContentWrapper}>
-          <Outlet />
-        </main>
-      </div>
+      <Outlet />
     </div>
   );
 };
