@@ -1,7 +1,21 @@
 .WorkspaceWrapper {
-	display: flex;
-	width: 100%;
+	max-width: 100%;
+	position: relative;
 	height: calc(100dvh - var(--navbar-height));
-	// height: 100%;
 	overflow: hidden;
+
+	.SidebarWrapper {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+	}
+
+	.MainContentWrapper {
+		position: absolute;
+		top: 0;
+		left: var(--sidebar-width);
+		height: 100%;
+		width: calc(100% - var(--sidebar-width));
+	}
 }

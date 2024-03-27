@@ -1,15 +1,16 @@
 import { useRef, useState } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
+import { Cross1Icon, PlusIcon } from '@radix-ui/react-icons';
 import { z } from 'zod';
 
 import classes from './index.module.scss';
+import { BoardTopBar } from '@/components/BoardTopBar';
+import { BoardBackground } from '@/components/BoardBackground';
 import { Column } from '@/components/Column';
-import { Cross1Icon, PlusIcon } from '@radix-ui/react-icons';
 import { Button } from '@/components/ui/Buttons';
 import { CardModal } from '@/components/CardModal';
 import { useKeybinding } from '@/hooks/useKeybinding';
 import { useOnClickOutside } from '@/hooks/useOnClickOutside';
-import { BoardTopBar } from '@/components/BoardTopBar';
 
 const cards = [
   {
@@ -177,6 +178,7 @@ function Board(): JSX.Element {
 
   return (
     <div className={classes.Wrapper}>
+      <BoardBackground />
       <BoardTopBar boardName="Test Board" boardId="board32" />
       <div className={classes.BoardWrapper}>
         {columns.map(column => (

@@ -5,8 +5,12 @@ import classes from './index.module.scss';
 export const WorkspaceLayout: React.FC = () => {
   return (
     <div className={classes.WorkspaceWrapper}>
-      <Sidebar />
-      <Outlet />
+      <aside className={classes.SidebarWrapper}>
+        <Sidebar />
+      </aside>
+      <div className={classes.MainContentWrapper}>
+        <Outlet />
+      </div>
     </div>
   );
 };

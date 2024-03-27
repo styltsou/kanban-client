@@ -1,21 +1,21 @@
 .Wrapper {
-	// display: flex;
-	// flex-direction: column;
 	height: 100%;
 	width: 100%;
+	max-width: 100%;
 	position: relative;
-	background-color: blue;
-	// border: 1px solid purple;
+	background-color: transparent;
+	// overflow: hidden;
 
 	.BoardWrapper {
-		width: 100%;
-		display: flex;
-		gap: var(--padding-small);
-		align-items: flex-start;
-		justify-content: flex-start;
-		padding: var(--padding-small);
+		// max-width: 100%;
 		height: calc(100% - var(--board-navbar-height));
-		overflow-x: auto;
+		display: flex;
+		justify-content: flex-start;
+		align-items: flex-start;
+		gap: var(--padding-small);
+		padding: var(--padding-small);
+		border: 1px solid red;
+		overflow-x: scroll;
 
 		.AddColumnButton {
 			min-width: var(--column-width);
@@ -60,7 +60,6 @@
 				border: none;
 				outline: 2px solid transparent;
 				line-height: 1.5;
-				// height: 2rem;
 
 				&:focus {
 					outline-color: var(--accent-color);
