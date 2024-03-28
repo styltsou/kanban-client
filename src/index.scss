@@ -44,6 +44,9 @@
   --color-scrollbar-track: var(--white-a5);
   --color-scrollbar-thumb: var(--white-a8);
 
+  --color-column-scrollbar-track: var(--slate-5);
+  --color-column-scrollbar-thumb: var(--slate-8);
+
   // SIZES
   --navbar-height: 3.2rem;
   --board-topbar-height: 3.6rem;
@@ -68,6 +71,9 @@ html.dark {
 
   --color-scrollbar-track: var(--black-a5);
   --color-scrollbar-thumb: var(--black-a8);
+
+  --color-column-scrollbar-track: var(--slate-2);
+  --color-column-scrollbar-thumb: var(--slate-7);
 }
 
 * {

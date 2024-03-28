@@ -150,7 +150,7 @@ function Board(): JSX.Element {
     },
     {
       title: 'In Progress',
-      cards: cards.slice(0, 12),
+      cards: cards.slice(0, 10),
     },
     {
       title: 'In Progress1',

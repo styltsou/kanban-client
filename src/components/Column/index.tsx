@@ -1,11 +1,12 @@
 import { useState, useRef } from 'react';
 import classes from './index.module.scss';
 import { PlusIcon, IdCardIcon } from '@radix-ui/react-icons';
-import { Card } from '../Card';
-import { Tooltip } from '../ui/Tooltip';
-import { CardForm } from '../CardForm';
-import { useOnClickOutside } from '../../hooks/useOnClickOutside';
-import { useKeybinding } from '../../hooks/useKeybinding';
+
+import { Card } from '@/components/Card';
+import { Tooltip } from '@/components/ui/Tooltip';
+import { CardForm } from '@/components/CardForm';
+import { useOnClickOutside } from '@/hooks/useOnClickOutside';
+import { useKeybinding } from '@/hooks/useKeybinding';
 import { Header } from './Header';
 
 export const Column: React.FC<{
@@ -48,7 +49,7 @@ export const Column: React.FC<{
     <div className={classes.Wrapper}>
       <Header columnId={title}>{title}</Header>
       <div className={classes.CardsList}>
-        <>{stateCards?.map(card => <Card key={card.id} card={card} />)}</>
+        {stateCards?.map(card => <Card key={card.id} card={card} />)}
       </div>
       {!isAddingCard ? (
         <div className={classes.AddCardButtonsWrapper}>
@@ -68,7 +69,7 @@ export const Column: React.FC<{
           </Tooltip>
         </div>
       ) : (
-        <div ref={cardFormRef} style={{ width: '100%' }}>
+        <div ref={cardFormRef} style={{ width: '100%', padding: '0 0.6rem' }}>
           <CardForm
             initialValue=""
             placeholder="Add a tittle for this card"
