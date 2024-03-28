@@ -30,7 +30,7 @@ export const Card: React.FC<{ card: { id: string; description: string } }> = ({
     height: 0,
   });
 
-  const handleEditButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
+  const handleEditButtonClick = (e: MouseEvent<HTMLElement>) => {
     e.stopPropagation();
 
     const cardElement = e.currentTarget.closest(`#${card.id}`);
@@ -76,6 +76,10 @@ export const Card: React.FC<{ card: { id: string; description: string } }> = ({
             },
           })
         }
+        onContextMenu={e => {
+          e.preventDefault();
+          handleEditButtonClick(e);
+        }}
       >
         <p className={classes.Content}>{card.description}</p>
         <OptionsMenu

@@ -1,21 +1,25 @@
 import classes from './index.module.scss';
 
-const imageUrl =
-  'https://images.unsplash.com/photo-1506619216599-9d16d0903dfd?q=80&w=2669&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
+type Props = {
+  isSolid: boolean;
+  backgroundUrl: string | null;
+  color: string | null;
+};
 
-const backgroundType: string = 'image';
-const solidBg = 'darkblue';
-
-export const BoardBackground = () => {
+export const BoardBackground: React.FC<Props> = ({
+  isSolid,
+  backgroundUrl,
+  color,
+}) => {
   return (
     <div className={classes.Container}>
-      {backgroundType === 'solid' && (
+      {isSolid && (
         <div
           className={classes.SolidBackground}
-          style={{ backgroundColor: solidBg }}
+          style={{ backgroundColor: color! }}
         />
       )}
-      <img className={classes.BackgroundImage} src={imageUrl} />
+      <img className={classes.BackgroundImage} src={backgroundUrl!} />
     </div>
   );
 };

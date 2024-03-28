@@ -4,62 +4,59 @@
 	max-width: 100%;
 	position: relative;
 	background-color: transparent;
-	// overflow: hidden;
+	padding-bottom: 0.5rem;
 
-	.BoardWrapper {
-		// max-width: 100%;
-		height: calc(100% - var(--board-navbar-height));
+	.BoardScrollContainer {
+		height: calc(100% - var(--board-topbar-height));
 		display: flex;
 		justify-content: flex-start;
 		align-items: flex-start;
 		gap: var(--padding-small);
 		padding: var(--padding-small);
-		border: 1px solid red;
-		overflow-x: scroll;
+		user-select: none;
+		overflow-x: auto;
 
 		.AddColumnButton {
 			min-width: var(--column-width);
-			background-color: var(--transparent-bg-color);
+			background-color: var(--bg-color);
 			color: var(--bg-color-text);
 			border-radius: 10px;
 			padding: var(--padding-small);
 			font-size: 1rem;
-			font-weight: 400;
+			font-weight: 600;
 			width: var(--column-width);
 			display: flex;
 			justify-content: flex-start;
 			align-items: center;
 			cursor: pointer;
+			backdrop-filter: blur(0.07rem);
 			transition: background-color 0.1s ease-in;
 
-			&>span {
-				margin-right: 0.25rem;
-			}
-
 			&:hover {
-				background-color: var(--transparent-bg-color-hover);
+				background-color: var(--bg-color-hover);
 			}
 		}
 
-		// TODO: Need to make a generic input width default styles
+		// TODO: Need to make a generic input width default styles?
 		.AddColumnForm {
 			width: var(--column-width);
 			min-width: var(--column-width);
 			background-color: var(--bg-color);
 			border-radius: 10px;
-			padding: 0.7rem 0.6rem;
+			padding: 0.6rem 0.6rem;
 
 			&>input {
 				width: 100%;
 				font-size: 1rem;
 				font-weight: bold;
-				color: var(--card-color-text);
+				color: var(--bg-color-text);
 				background-color: var(--card-color);
 				border-radius: 7px;
-				padding: 0.1rem 0.3rem;
+				padding: 0.3rem;
+				margin-bottom: 0.3rem;
 				border: none;
 				outline: 2px solid transparent;
-				line-height: 1.5;
+				line-height: 1.2;
 
 				&:focus {
 					outline-color: var(--accent-color);
@@ -86,6 +83,21 @@
 					}
 				}
 			}
+		}
+
+		&::-webkit-scrollbar {
+			height: 0.8rem;
+		}
+
+		&::-webkit-scrollbar-track {
+			border-radius: 1rem;
+			background-color: var(--color-scrollbar-track);
+			margin: 0 var(--padding-small);
+		}
+
+		&::-webkit-scrollbar-thumb {
+			border-radius: 1rem;
+			background-color: var(--color-scrollbar-thumb);
 		}
 	}
 }

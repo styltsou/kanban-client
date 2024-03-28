@@ -11,12 +11,52 @@
 	color: var(--card-color-text);
 	border-right: 1px solid var(--border-color);
 
-	.WorksopaceSelector {
-		height: var(--board-navbar-height);
+	.WorkspaceIndicator {
+		height: var(--board-topbar-height);
 		width: 100%;
 		display: flex;
-		justify-content: center;
+		justify-content: space-between;
 		align-items: center;
+		padding: 0 var(--padding-small);
 		border-bottom: 1px solid var(--border-color);
+
+		.WorkspaceInfo {
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-start;
+			align-items: center;
+			font-weight: 600;
+			font-size: 0.85rem;
+		}
+
+		.WorkspaceBadge {
+			width: calc(var(--board-topbar-height) - 2 * var(--padding-small));
+			height: calc(var(--board-topbar-height) - 2 * var(--padding-small));
+			border-radius: 5px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background-color: pink;
+			font-size: 1.3rem;
+			margin-right: 0.45rem;
+			color: black;
+		}
+
+		.CloseSidebarButton {
+			color: var(--card-color-text);
+			width: calc(var(--board-topbar-height) - 2 * var(--padding-small));
+			height: calc(var(--board-topbar-height) - 2 * var(--padding-small));
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			line-height: 0.8;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: background-color 0.1s ease-in;
+
+			&:hover {
+				background-color: var(--card-color-hover);
+			}
+		}
 	}
 }

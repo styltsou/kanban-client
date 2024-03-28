@@ -17,5 +17,6 @@
 		left: var(--sidebar-width);
 		height: 100%;
 		width: calc(100% - var(--sidebar-width));
+		user-select: none;
 	}
 }

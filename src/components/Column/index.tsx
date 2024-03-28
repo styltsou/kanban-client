@@ -14,6 +14,10 @@ export const Column: React.FC<{
 }> = ({ title, cards }) => {
   const cardFormRef = useRef(null);
 
+  // *This is to be removed when data fetching is implemented
+  const [stateCards, setStateCards] =
+    useState<{ id: string; description: string }[]>(cards);
+
   const [isNewCardPending, setIsNewCardPending] = useState<boolean>(false);
 
   const [isAddingCard, setIsAddingCard] = useState<boolean>(false);
@@ -21,10 +25,15 @@ export const Column: React.FC<{
   const handleAddNewCard = (value: string) => {
     setIsNewCardPending(true);
     console.log(value);
+
     setTimeout(() => {
+      setStateCards(prev => [
+        ...prev,
+        { id: crypto.randomUUID().toString(), description: value },
+      ]);
       setIsNewCardPending(false);
       setIsAddingCard(false);
-    }, 1000);
+    }, 500);
   };
 
   useOnClickOutside(cardFormRef, () => {
@@ -39,7 +48,7 @@ export const Column: React.FC<{
     <div className={classes.Wrapper}>
       <Header columnId={title}>{title}</Header>
       <div className={classes.CardsList}>
-        <>{cards?.map(card => <Card key={card.id} card={card} />)}</>
+        <>{stateCards?.map(card => <Card key={card.id} card={card} />)}</>
       </div>
       {!isAddingCard ? (
         <div className={classes.AddCardButtonsWrapper}>

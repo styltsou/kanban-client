@@ -23,6 +23,7 @@
 		aspect-ratio: 1;
 		color: var(--bg-color-text);
 		padding: 0.4rem;
+		// outline: 2px solid transparent;
 		transition: background-color 0.1 ease-in;
 
 		&:hover {
@@ -31,7 +32,11 @@
 	}
 
 	.TitleForm {
+		flex: 1;
+		margin-right: 4px;
+
 		&>input {
+			width: 100%;
 			font-size: inherit;
 			font-weight: inherit;
 			font-family: inherit;
@@ -39,8 +44,8 @@
 			background-color: var(--card-color);
 			border-radius: 7px;
 			height: 100%;
-			padding: 0.1rem 0.3rem;
-			line-height: 1.5;
+			padding: 0.25rem;
+			line-height: 1.2;
 			border: none;
 			outline: 2px solid transparent;
 
