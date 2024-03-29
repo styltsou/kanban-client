@@ -1,0 +1,49 @@
+.Wrapper {
+	color: inherit;
+	font-size: 1.1rem;
+	width: 100%;
+	font-weight: 600;
+	height: 100%;
+
+	.BoardNameButton {
+		display: flex;
+		align-items: center;
+		cursor: pointer;
+		color: inherit;
+		font-size: inherit;
+		font-weight: inherit;
+		line-height: 1;
+		height: 100%;
+		padding: 0 0.6rem;
+		border-radius: 7px;
+		outline: 2px solid transparent;
+		transition: 0.05s background-color ease-in;
+
+		&:hover {
+			background-color: rgba(0, 0, 0, 0.2);
+		}
+	}
+
+	.BoardNameForm {
+		height: 100%;
+		width: auto;
+
+		.Input {
+			height: 100%;
+			width: auto;
+			font-size: inherit;
+			font-weight: inherit;
+			background-color: var(--card-color);
+			color: var(--card-color-text);
+			padding: 0 0.6rem;
+			border: none;
+			border-radius: 7px;
+			outline: 2px solid transparent;
+			transition: 0.05s outline ease-in;
+
+			&:focus {
+				outline-color: var(--accent-color);
+			}
+		}
+	}
+}

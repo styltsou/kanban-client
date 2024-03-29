@@ -4,7 +4,7 @@
 	max-width: 100%;
 	position: relative;
 	background-color: transparent;
-	padding-bottom: 0.5rem;
+	padding-bottom: 0.3rem;
 
 	.BoardScrollContainer {
 		height: calc(100% - var(--board-topbar-height));
@@ -53,7 +53,6 @@
 				background-color: var(--card-color);
 				border-radius: 7px;
 				padding: 0.3rem;
-				margin-bottom: 0.3rem;
 				border: none;
 				outline: 2px solid transparent;
 				line-height: 1.2;

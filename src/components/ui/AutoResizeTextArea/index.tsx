@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef, ChangeEvent } from 'react';
-import { cn } from '../../../utils/cn';
+import { cn } from '@/utils/cn';
 import classes from './index.module.scss';
-
-// TODO: Add autofocus and auto select functionality
 
 interface AutoResizeTextareaProps
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {

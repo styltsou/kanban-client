@@ -3,6 +3,43 @@
 	position: relative;
 	height: calc(100dvh - var(--navbar-height));
 	overflow: hidden;
+	transition: transform 0.1s ease-in;
+
+	.SidebarOpenButtonWrapper {
+		position: absolute;
+		top: calc(var(--board-topbar-height) / 2);
+		left: 0;
+		z-index: 10;
+		transform: translateX(-4rem);
+
+		&>button {
+			width: 1.4rem;
+			height: 1.4rem;
+			background-color: var(--card-color);
+			color: var(--bg-color-text);
+			border-radius: 100%;
+			line-height: 0.5;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			border: 1px solid var(--bg-color);
+			cursor: pointer;
+			transform: translate(0.25rem, -50%);
+
+			&>svg {
+				width: 0.8rem;
+				height: 0.8rem;
+			}
+
+			&:hover {
+				background-color: var(--bg-color);
+			}
+		}
+
+		&.collapsed {
+			transform: translateX(0);
+		}
+	}
 
 	.SidebarWrapper {
 		position: absolute;
@@ -14,9 +51,16 @@
 	.MainContentWrapper {
 		position: absolute;
 		top: 0;
-		left: var(--sidebar-width);
+		left: 0;
+		transform: translateX(var(--sidebar-width));
 		height: 100%;
 		width: calc(100% - var(--sidebar-width));
 		user-select: none;
+		// transition: transform 0.1s ease-in;
+
+		&.collapsed {
+			transform: translateX(var(--sidebar-collapsed-width));
+			width: calc(100% - var(--sidebar-collapsed-width));
+		}
 	}
 }

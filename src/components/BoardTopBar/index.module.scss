@@ -14,4 +14,12 @@
 		background-color: var(--color-board-topbar-dark);
 		color: white;
 	}
+
+	.HeightContainer {
+		width: 100%;
+		height: calc(var(--board-topbar-height) - 2 * var(--padding-small));
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
 }

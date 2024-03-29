@@ -1,15 +1,17 @@
 import classes from './index.module.scss';
 import { cn } from '@/utils/cn';
+import { BoardNameForm } from './BoardNameForm';
 
 export const BoardTopBar: React.FC<{
   boardId: string;
   boardName: string;
   isDark: boolean;
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
 }> = ({ boardId, boardName, isDark }) => {
   return (
     <header className={cn(classes.Wrapper, isDark && classes.dark)}>
-      {boardName}
+      <div className={classes.HeightContainer}>
+        <BoardNameForm boardId={boardId} boardName={boardName} />
+      </div>
     </header>
   );
 };

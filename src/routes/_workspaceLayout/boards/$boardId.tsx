@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
 import { Cross1Icon, PlusIcon } from '@radix-ui/react-icons';
 import { z } from 'zod';
@@ -217,26 +217,8 @@ function Board(): JSX.Element {
     setColumnTitle('');
   };
 
-  // ! Code added while trying to overide the default textarea 'Enter' behavior
-  // WIP: Still need to figure this out
-  // const handleTextreaKeyDown = (
-  //   e: React.KeyboardEvent<HTMLTextAreaElement>,
-  // ) => {
-  //   if (e.key === 'Enter') {
-  //     e.preventDefault();
-  //     return false;
-  //     // console.log('prevent default');
-  //     // e.currentTarget?.form?.dispatchEvent(
-  //     //   new Event('submit', { cancelable: true }),
-  //     // );
-  //   }
-  // };
-
   useOnClickOutside(formRef, () => setIsAddingColumn(false));
-
   useKeybinding('Escape', () => setIsAddingColumn(false));
-
-  useEffect(() => {}, []);
 
   return (
     <div className={classes.Wrapper}>
@@ -247,7 +229,7 @@ function Board(): JSX.Element {
       />
       <BoardTopBar
         boardId="board32"
-        boardName="Test Board"
+        boardName="Headless Commerce"
         isDark={background.isDark}
       />
       <div ref={scrollContainerRef} className={classes.BoardScrollContainer}>
@@ -273,7 +255,7 @@ function Board(): JSX.Element {
             />
             <div className={classes.AddColumnFormButtonsWrapper}>
               <Button type="submit">Add list</Button>
-              <button>
+              <button onClick={() => setIsAddingColumn(false)}>
                 <Cross1Icon />
               </button>
             </div>

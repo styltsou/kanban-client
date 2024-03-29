@@ -25,27 +25,12 @@
 		justify-content: flex-start;
 		align-items: center;
 
-		&>button:first-child {
-			background-color: var(--accent-color);
-			color: var(--card-color);
-			padding: 0.6rem 0.8rem;
-			font-size: 0.9rem;
-			font-weight: 600;
-			border-radius: 7px;
-			cursor: pointer;
-			transition: background-color 0.1s ease-in;
-
-			&:hover {
-				background-color: var(--accent-color-hover);
-			}
-		}
-
 		&>button:nth-child(2) {
 			margin-left: 0.3rem;
 			cursor: pointer;
 			background-color: transparent;
 			padding: 0.6rem;
-			line-height: 0.8;
+			line-height: 0.7;
 			border-radius: 7px;
 			color: var(--bg-color-text);
 

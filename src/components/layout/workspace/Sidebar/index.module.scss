@@ -3,13 +3,17 @@
 	min-width: var(--sidebar-width);
 	height: 100%;
 	display: flex;
-
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: flex-start;
 	background-color: var(--card-color);
 	color: var(--card-color-text);
 	border-right: 1px solid var(--border-color);
+	// transition: all 0.1s ease-in;
+
+	&.collapsed {
+		transform: translateX(calc(var(--sidebar-collapsed-width) - 100%));
+	}
 
 	.WorkspaceIndicator {
 		height: var(--board-topbar-height);
@@ -38,7 +42,7 @@
 			align-items: center;
 			background-color: pink;
 			font-size: 1.3rem;
-			margin-right: 0.45rem;
+			margin-right: 0.5rem;
 			color: black;
 		}
 
@@ -52,11 +56,22 @@
 			line-height: 0.8;
 			border-radius: 5px;
 			cursor: pointer;
-			transition: background-color 0.1s ease-in;
+			transition: background-color 0.15s ease-in;
 
 			&:hover {
 				background-color: var(--card-color-hover);
 			}
+		}
+	}
+
+	.CollapsedSidebarPortion {
+		width: 100%;
+		height: 100%;
+		transition: background-color 0.1 ease-in;
+		cursor: pointer;
+
+		&:hover {
+			background-color: var(--bg-color);
 		}
 	}
 }

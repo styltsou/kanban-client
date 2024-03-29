@@ -48,9 +48,11 @@ export const Column: React.FC<{
   return (
     <div className={classes.Wrapper}>
       <Header columnId={title}>{title}</Header>
-      <div className={classes.CardsList}>
-        {stateCards?.map(card => <Card key={card.id} card={card} />)}
-      </div>
+      {stateCards.length !== 0 && (
+        <div className={classes.CardsList}>
+          {stateCards?.map(card => <Card key={card.id} card={card} />)}
+        </div>
+      )}
       {!isAddingCard ? (
         <div className={classes.AddCardButtonsWrapper}>
           <button
