@@ -30,8 +30,12 @@ export const Header: React.FC<{
   }, []);
 
   return (
-    <div className={classes.Wrapper}>
-      {isTitleEditing ? (
+    <div className={classes.ColumnTitleWrapper}>
+      {!isTitleEditing ? (
+        <h2 className={classes.Title} onClick={() => setIsTitleEditing(true)}>
+          {title}
+        </h2>
+      ) : (
         <form className={classes.TitleForm} onSubmit={handleTitleSubmit}>
           <input
             ref={inputRef}
@@ -42,10 +46,6 @@ export const Header: React.FC<{
             onBlur={() => setIsTitleEditing(false)}
           />
         </form>
-      ) : (
-        <div className={classes.Title} onClick={() => setIsTitleEditing(true)}>
-          {title}
-        </div>
       )}
       <ActionsMenu>
         <button className={classes.IconButton} aria-label="Column Actions">

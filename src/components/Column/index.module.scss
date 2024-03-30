@@ -1,65 +1,25 @@
 .Wrapper {
 	width: var(--column-width);
-	min-width: var(--column-width);
+	flex-shrink: 0;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
 	align-items: center;
-	padding: 0.6rem 0;
+	padding: var(--padding-xs) 0;
 	background-color: var(--bg-color);
 	border-radius: 10px;
 	overflow: hidden;
 	max-height: 100%;
-
-	.ColumnTitleWrapper {
-		width: 100%;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		margin-bottom: 0.6rem;
-		font-size: 1.2rem;
-		font-weight: 500;
-
-		.Title {
-			cursor: pointer;
-			margin-left: 0.4rem;
-			flex: 1;
-			color: var(--bg-color-text);
-		}
-
-		.TitleForm {
-			flex: 1;
-
-			&>input {
-				font-size: 1rem;
-				color: var(--bg-color-text);
-				background-color: var(--card-color);
-				border-radius: 7px;
-				display: block;
-				font-size: inherit;
-				height: 100%;
-				padding: 0.1rem 0.3rem;
-				border: none;
-
-				&:focus {
-					outline-color: var(--accent-color);
-				}
-			}
-		}
-	}
+	box-sizing: border-box;
 
 	.CardsList {
+		// I dont use width 100% becuse for some reason tha margin overlfowas the container
+		width: calc(100% - var(--padding-xs));
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		margin-bottom: 0.6rem;
-		padding: 0 0.6rem;
-		gap: 0.35rem;
-		// This thing with padding and margin right is 
-		// to keep the stylinig nice even when scrollbar is visible
-		padding-right: 0.3rem;
-		margin-right: 0.3rem;
+		padding: 0 calc(var(--padding-xs) / 2);
+		margin: 0 calc(var(--padding-xs) / 2);
+		gap: var(--padding-xs);
+		margin-top: var(--padding-xs);
 		overflow-y: auto;
 
 		&::-webkit-scrollbar {
@@ -82,8 +42,9 @@
 		display: flex;
 		justify-content: flex-start;
 		align-items: center;
-		gap: 0.5rem;
-		padding: 0 0.6rem;
+		gap: calc(var(--padding-xs) / 2);
+		padding: 0 var(--padding-xs);
+		padding-top: var(--padding-xs);
 
 		&>button.AddCard {
 			flex: 1;

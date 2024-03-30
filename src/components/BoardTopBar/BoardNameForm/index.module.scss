@@ -1,7 +1,6 @@
 .Wrapper {
 	color: inherit;
 	font-size: 1.1rem;
-	width: 100%;
 	font-weight: 600;
 	height: 100%;
 
@@ -16,6 +15,7 @@
 		height: 100%;
 		padding: 0 0.6rem;
 		border-radius: 7px;
+		// border: 2px solid transparent;
 		outline: 2px solid transparent;
 		transition: 0.05s background-color ease-in;
 
@@ -26,7 +26,8 @@
 
 	.BoardNameForm {
 		height: 100%;
-		width: auto;
+		display: block;
+		// width: auto;
 
 		.Input {
 			height: 100%;

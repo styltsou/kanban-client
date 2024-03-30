@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import classes from './index.module.scss';
 import { Cross1Icon } from '@radix-ui/react-icons';
 import { AutoResizeTextarea } from '@/components/ui/AutoResizeTextArea';
-import { Button } from '@/components/ui/Buttons';
+import { Button } from '@/components/ui/Button';
 //TODO Add disabled button state if needed
 
 export const CardForm: React.FC<{
@@ -37,7 +37,10 @@ export const CardForm: React.FC<{
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (value === '') return;
+
     onSubmit(value);
+    setValue('');
   };
 
   return (

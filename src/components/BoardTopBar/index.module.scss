@@ -5,7 +5,7 @@
 	display: flex;
 	font-weight: 600;
 	align-items: center;
-	padding: 0 var(--padding-small);
+	padding: 0 var(--padding-s);
 	background-color: var(--color-board-topbar-light);
 	color: black;
 	backdrop-filter: blur(0.4rem);
@@ -17,9 +17,13 @@
 
 	.HeightContainer {
 		width: 100%;
-		height: calc(var(--board-topbar-height) - 2 * var(--padding-small));
+		height: calc(var(--board-topbar-height) - 2 * var(--padding-s));
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
+		// justify-content: space-between;
+
+		.RightSection {
+			flex: 1;
+		}
 	}
 }

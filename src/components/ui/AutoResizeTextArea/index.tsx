@@ -47,9 +47,9 @@ export const AutoResizeTextarea: React.FC<AutoResizeTextareaProps> = ({
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      e.currentTarget?.form?.dispatchEvent(
-        new Event('submit', { cancelable: true }),
-      );
+
+      const form = textareaRef?.current?.closest('form');
+      if (form) form.requestSubmit();
     }
   };
 

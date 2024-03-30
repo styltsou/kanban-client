@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
 import { Cross1Icon, PlusIcon } from '@radix-ui/react-icons';
 import { z } from 'zod';
@@ -7,11 +7,21 @@ import classes from './index.module.scss';
 import { BoardTopBar } from '@/components/BoardTopBar';
 import { BoardBackground } from '@/components/BoardBackground';
 import { Column } from '@/components/Column';
-import { Button } from '@/components/ui/Buttons';
+import { Button } from '@/components/ui/Button';
 import { CardModal } from '@/components/CardModal';
 import { useKeybinding } from '@/hooks/useKeybinding';
 import { useOnClickOutside } from '@/hooks/useOnClickOutside';
 import { useDragScroll } from '@/hooks/useDragScroll';
+
+// ! WIP: STILL need to figure out the pattern that determines the isDark value. Does it take into account the theme too?
+// ! Test in actuall Trello with that color below to see the behavior.
+const background = {
+  isDark: true,
+  isSolid: true,
+  color: '#5356FF',
+  imageUrl:
+    'https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?q=80&w=2560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+};
 
 const cards = [
   {
@@ -116,6 +126,53 @@ const cards = [
   },
 ];
 
+const mockCols = [
+  {
+    title: 'Backlog',
+    cards: cards.slice(0, 8),
+  },
+  {
+    title: 'To Do',
+    cards: cards.slice(0, 4),
+  },
+  {
+    title: 'In Progress',
+    cards: cards.slice(0, 12),
+  },
+  {
+    title: 'In Progress1',
+    cards: cards.slice(0, 6),
+  },
+  {
+    title: 'In Progress8',
+    cards: cards.slice(0, 6),
+  },
+  {
+    title: 'In Progress2',
+    cards: cards.slice(0, 6),
+  },
+  {
+    title: 'In Progress3',
+    cards: cards.slice(0, 6),
+  },
+  // {
+  //   title: 'In Progress4',
+  //   cards: cards.slice(0, 6),
+  // },
+  // {
+  //   title: 'In Progress5',
+  //   cards: cards.slice(0, 6),
+  // },
+  // {
+  //   title: 'In Progress6',
+  //   cards: cards.slice(0, 6),
+  // },
+  // {
+  //   title: 'In Progress7',
+  //   cards: cards.slice(0, 6),
+  // },
+];
+
 const searchParamsSchema = z.object({
   cardId: z.string().optional(),
 });
@@ -126,65 +183,10 @@ export const Route = createFileRoute('/_workspaceLayout/boards/$boardId')({
 });
 
 function Board(): JSX.Element {
-  const formRef = useRef<HTMLFormElement>(null);
+  const columnFormRef = useRef<HTMLFormElement>(null);
   const scrollContainerRef = useDragScroll<HTMLDivElement>();
 
-  // ! WIP: STILL need to figure out the pattern that determines the isDark value. Does it take into account the theme too?
-  // ! Test in actuall Trello with that color below to see the behavior.
-  const background = {
-    isDark: true,
-    isSolid: true,
-    color: '#5356FF',
-    imageUrl:
-      'https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?q=80&w=2560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  };
-
-  const [columns, setColumns] = useState([
-    {
-      title: 'Backlog',
-      cards: cards.slice(0, 8),
-    },
-    {
-      title: 'To Do',
-      cards: cards.slice(0, 4),
-    },
-    {
-      title: 'In Progress',
-      cards: cards.slice(0, 10),
-    },
-    {
-      title: 'In Progress1',
-      cards: cards.slice(0, 6),
-    },
-    {
-      title: 'In Progress8',
-      cards: cards.slice(0, 6),
-    },
-    {
-      title: 'In Progress2',
-      cards: cards.slice(0, 6),
-    },
-    {
-      title: 'In Progress3',
-      cards: cards.slice(0, 6),
-    },
-    // {
-    //   title: 'In Progress4',
-    //   cards: cards.slice(0, 6),
-    // },
-    // {
-    //   title: 'In Progress5',
-    //   cards: cards.slice(0, 6),
-    // },
-    // {
-    //   title: 'In Progress6',
-    //   cards: cards.slice(0, 6),
-    // },
-    // {
-    //   title: 'In Progress7',
-    //   cards: cards.slice(0, 6),
-    // },
-  ]);
+  const [columns, setColumns] = useState(mockCols);
 
   const [isAddingColumn, setIsAddingColumn] = useState<boolean>(false);
   const [columnTitle, setColumnTitle] = useState<string>('');
@@ -217,7 +219,19 @@ function Board(): JSX.Element {
     setColumnTitle('');
   };
 
-  useOnClickOutside(formRef, () => setIsAddingColumn(false));
+  // Keep the addColumn form into view and focused
+  useEffect(() => {
+    if (columnFormRef.current) {
+      columnFormRef.current.scrollIntoView({
+        block: 'end',
+      });
+
+      const colFormInput = columnFormRef.current.querySelector('input');
+      if (document.activeElement !== colFormInput) colFormInput?.focus();
+    }
+  }, [isAddingColumn, columns.length]);
+
+  useOnClickOutside(columnFormRef, () => setIsAddingColumn(false));
   useKeybinding('Escape', () => setIsAddingColumn(false));
 
   return (
@@ -242,13 +256,12 @@ function Board(): JSX.Element {
         ))}
         {isAddingColumn ? (
           <form
-            ref={formRef}
+            ref={columnFormRef}
             className={classes.AddColumnForm}
             onSubmit={handleAddColumn}
           >
             <input
               autoFocus={true}
-              onFocus={() => console.log('should scroll into view')}
               placeholder="Enter list name"
               value={columnTitle}
               onChange={e => setColumnTitle(e.target.value)}

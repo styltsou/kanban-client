@@ -1,7 +1,6 @@
 import { useRef } from 'react';
 import { ChevronLeftIcon } from '@radix-ui/react-icons';
 import classes from './index.module.scss';
-import { cn } from '@/utils/cn';
 import { useSidebar } from '@/contexts/SideBarContext';
 import { useKeybinding } from '@/hooks/useKeybinding';
 
@@ -23,7 +22,7 @@ export const Sidebar: React.FC = () => {
   });
 
   return (
-    <div className={cn(classes.Wrapper, !isOpen && classes.collapsed)}>
+    <div data-collapsed={!isOpen} className={classes.Wrapper}>
       {isOpen ? (
         <>
           <div className={classes.WorkspaceIndicator}>

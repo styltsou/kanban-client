@@ -1,12 +1,12 @@
 .CardContainer {
 	position: relative;
-	width: 100%;
+	display: flex;
 	background-color: var(--card-color);
 	font-size: 0.9rem;
 	border: 2px solid transparent;
 	border-radius: 8px;
 	cursor: pointer;
-	transition: border-color 0.05s ease;
+	transition: border-color 0.05s ease-in;
 
 	&:hover .EditButton {
 		visibility: visible;
@@ -18,6 +18,8 @@
 
 	.Content {
 		color: var(--card-color-text);
+		word-wrap: break-word;
+		overflow: hidden;
 		padding: 0.4rem;
 	}
 

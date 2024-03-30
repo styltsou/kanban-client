@@ -50,10 +50,10 @@ export const BoardNameForm: React.FC<{
           className={classes.BoardNameForm}
           onSubmit={handleChangeBoardName}
         >
-          <AutoResizeInput
+          <input
             className={classes.Input}
             autoFocus={true}
-            autoSelect={true}
+            // autoSelect={true}
             type="text"
             value={newBoardName}
             onChange={e => setNewBoardName(e.target.value)}

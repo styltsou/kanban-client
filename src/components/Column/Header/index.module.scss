@@ -1,15 +1,15 @@
-.Wrapper {
+.ColumnTitleWrapper {
 	width: 100%;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	margin-bottom: 0.6rem;
-	padding: 0 0.6rem;
+	padding: 0 var(--padding-xs);
 	font-size: 1rem;
 	font-weight: bold;
 
 	.Title {
 		cursor: pointer;
+		font-size: inherit;
 		flex: 1;
 		padding: 0.1rem 0.3rem;
 		line-height: 1.5;
@@ -24,7 +24,6 @@
 		aspect-ratio: 1;
 		color: var(--bg-color-text);
 		padding: 0.4rem;
-		// outline: 2px solid transparent;
 		transition: background-color 0.1 ease-in;
 
 		&:hover {

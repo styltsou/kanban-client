@@ -4,10 +4,9 @@
 	justify-content: flex-start;
 	align-items: flex-start;
 	gap: 0.5rem;
-	width: 100%;
 
 	.Textarea {
-		padding: 0.3rem;
+		padding: 0.4rem;
 		color: var(--card-color-text);
 		font-family: inherit;
 		font-size: 0.9rem;
@@ -16,12 +15,16 @@
 		word-wrap: break-word;
 		background-color: var(--card-color);
 		border: 2px solid transparent;
+		outline: none;
 		border-radius: 8px;
+
+		&:focus {
+			border-color: var(--accent-color);
+		}
 	}
 
 	.ButtonsWrapper {
 		display: flex;
-		// width: 100%;
 		justify-content: flex-start;
 		align-items: center;
 

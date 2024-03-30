@@ -23,9 +23,7 @@ export const WorkspaceLayout: React.FC = () => {
       <aside className={classes.SidebarWrapper}>
         <Sidebar />
       </aside>
-      <div
-        className={cn(classes.MainContentWrapper, !isOpen && classes.collapsed)}
-      >
+      <div data-collapsed={!isOpen} className={classes.MainContentWrapper}>
         <Outlet />
       </div>
     </div>

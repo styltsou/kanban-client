@@ -11,6 +11,7 @@ export const BoardTopBar: React.FC<{
     <header className={cn(classes.Wrapper, isDark && classes.dark)}>
       <div className={classes.HeightContainer}>
         <BoardNameForm boardId={boardId} boardName={boardName} />
+        <div className={classes.RightSection}>share</div>
       </div>
     </header>
   );
