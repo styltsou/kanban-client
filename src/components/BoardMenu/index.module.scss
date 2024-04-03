@@ -1,0 +1,76 @@
+.MenuContainer {
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 100%;
+	width: var(--board-menu-width);
+	padding: var(--padding-s);
+	background-color: var(--bg-color);
+	color: var(--bg-color-text);
+	transform: translateX(var(--board-menu-width));
+
+	&[data-isOpen="true"] {
+		transform: translateX(0);
+	}
+
+	.MenuHeader {
+		width: 100%;
+		height: var(--baord-topbar-height);
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		color: inherit;
+		font-size: 1rem;
+
+		.IconButton {
+			color: inherit;
+			padding: 0.4rem;
+			background-color: transparent;
+			border-radius: 7px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			transition: background-color 0.1s ease-in;
+
+			&>svg {
+				width: 1.2em;
+				height: 1.2em;
+				line-height: 1;
+			}
+
+			&:hover {
+				background-color: var(--bg-color-hover);
+			}
+
+			&.BackButton {
+				justify-self: flex-start;
+			}
+
+			&.CloseButton {
+				justify-self: flex-end;
+			}
+		}
+
+		.Title {
+			color: inherit;
+			justify-self: center;
+			align-self: center;
+		}
+
+		.CloseButton {
+			color: inherit;
+
+			padding: 0.4rem;
+		}
+	}
+
+	.Divider {
+		height: 2px;
+		margin: var(--padding-s) 0;
+		background-color: var(--border-color);
+	}
+
+	.MainContent {
+		display: flex;
+		width: 100%;
+	}
+}

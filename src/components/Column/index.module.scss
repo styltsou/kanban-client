@@ -12,7 +12,7 @@
 	box-sizing: border-box;
 
 	.CardsList {
-		// I dont use width 100% becuse for some reason tha margin overlfowas the container
+		//* I dont use width 100% becuse for some reason tha margin overlfows the container
 		width: calc(100% - var(--padding-xs));
 		display: flex;
 		flex-direction: column;
@@ -53,7 +53,7 @@
 			color: var(--bg-color-text);
 			font-size: 1rem;
 			padding: 0.5rem;
-			border-radius: 9px;
+			border-radius: 7px;
 			line-height: 1;
 			cursor: pointer;
 			transition: background-color 0.1s ease-in;

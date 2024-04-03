@@ -6,6 +6,10 @@
 	background-color: transparent;
 	padding-bottom: 0.3rem;
 
+	&[data-isOpen="true"] {
+		width: calc(100% - var(--board-menu-width));
+	}
+
 	.BoardScrollContainer {
 		height: calc(100% - var(--board-topbar-height));
 		display: flex;
@@ -18,19 +22,22 @@
 
 		.AddColumnButton {
 			min-width: var(--column-width);
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+			cursor: pointer;
 			background-color: var(--bg-color);
 			color: var(--bg-color-text);
 			border-radius: 10px;
 			padding: var(--padding-s);
 			font-size: 1rem;
-			font-weight: 600;
+			// font-weight: 400;
 			width: var(--column-width);
-			display: flex;
-			justify-content: flex-start;
-			align-items: center;
-			cursor: pointer;
-			backdrop-filter: blur(0.07rem);
 			transition: background-color 0.1s ease-in;
+
+			&>span {
+				margin-right: 0.25rem;
+			}
 
 			&:hover {
 				background-color: var(--bg-color-hover);
@@ -48,17 +55,17 @@
 			&>input {
 				width: 100%;
 				font-size: 1rem;
-				font-weight: bold;
+				font-weight: 600;
+				line-height: 1;
 				color: var(--bg-color-text);
 				background-color: var(--card-color);
 				border-radius: 7px;
-				padding: 0.3rem;
-				border: none;
-				outline: 2px solid transparent;
-				line-height: 1.2;
+				padding: 0.4rem var(--padding-xs);
+				border: 2px solid transparent;
+				outline: none;
 
 				&:focus {
-					outline-color: var(--accent-color);
+					border-color: var(--accent-color);
 				}
 			}
 

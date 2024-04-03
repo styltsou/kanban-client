@@ -12,12 +12,14 @@ import { CardModal } from '@/components/CardModal';
 import { useKeybinding } from '@/hooks/useKeybinding';
 import { useOnClickOutside } from '@/hooks/useOnClickOutside';
 import { useDragScroll } from '@/hooks/useDragScroll';
+import { BoardMenu } from '@/components/BoardMenu';
+import { useBoardMenu } from '@/contexts/BoardMenuContext';
 
 // ! WIP: STILL need to figure out the pattern that determines the isDark value. Does it take into account the theme too?
 // ! Test in actuall Trello with that color below to see the behavior.
 const background = {
   isDark: true,
-  isSolid: true,
+  isSolid: false,
   color: '#5356FF',
   imageUrl:
     'https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?q=80&w=2560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
@@ -183,6 +185,10 @@ export const Route = createFileRoute('/_workspaceLayout/boards/$boardId')({
 });
 
 function Board(): JSX.Element {
+  const { boardId } = Route.useParams();
+
+  const { isOpen } = useBoardMenu();
+
   const columnFormRef = useRef<HTMLFormElement>(null);
   const scrollContainerRef = useDragScroll<HTMLDivElement>();
 
@@ -235,55 +241,60 @@ function Board(): JSX.Element {
   useKeybinding('Escape', () => setIsAddingColumn(false));
 
   return (
-    <div className={classes.Wrapper}>
-      <BoardBackground
-        isSolid={background.isSolid}
-        color={background.color}
-        backgroundUrl={background.imageUrl}
-      />
-      <BoardTopBar
-        boardId="board32"
-        boardName="Headless Commerce"
-        isDark={background.isDark}
-      />
-      <div ref={scrollContainerRef} className={classes.BoardScrollContainer}>
-        {columns.map(column => (
-          <Column
-            key={column.title}
-            title={column.title}
-            cards={column.cards}
-          />
-        ))}
-        {isAddingColumn ? (
-          <form
-            ref={columnFormRef}
-            className={classes.AddColumnForm}
-            onSubmit={handleAddColumn}
-          >
-            <input
-              autoFocus={true}
-              placeholder="Enter list name"
-              value={columnTitle}
-              onChange={e => setColumnTitle(e.target.value)}
+    <>
+      <div className={classes.Wrapper} data-isOpen={isOpen}>
+        <BoardBackground
+          isSolid={background.isSolid}
+          color={background.color}
+          backgroundUrl={background.imageUrl}
+        />
+        <BoardTopBar
+          boardId="board32"
+          boardName="Headless Commerce"
+          isDark={background.isDark}
+        />
+        <div ref={scrollContainerRef} className={classes.BoardScrollContainer}>
+          {columns.map(column => (
+            <Column
+              key={column.title}
+              title={column.title}
+              cards={column.cards}
             />
-            <div className={classes.AddColumnFormButtonsWrapper}>
-              <Button type="submit">Add list</Button>
-              <button onClick={() => setIsAddingColumn(false)}>
-                <Cross1Icon />
-              </button>
-            </div>
-          </form>
-        ) : (
-          <button
-            className={classes.AddColumnButton}
-            onClick={() => setIsAddingColumn(true)}
-          >
-            <PlusIcon />
-            <span>Add another list</span>
-          </button>
-        )}
+          ))}
+          {isAddingColumn ? (
+            <form
+              ref={columnFormRef}
+              className={classes.AddColumnForm}
+              onSubmit={handleAddColumn}
+            >
+              <input
+                autoFocus={true}
+                placeholder="Enter list name"
+                value={columnTitle}
+                onChange={e => setColumnTitle(e.target.value)}
+              />
+              <div className={classes.AddColumnFormButtonsWrapper}>
+                <Button type="submit">Add list</Button>
+                <button onClick={() => setIsAddingColumn(false)}>
+                  <Cross1Icon />
+                </button>
+              </div>
+            </form>
+          ) : (
+            <button
+              className={classes.AddColumnButton}
+              onClick={() => setIsAddingColumn(true)}
+            >
+              <span>
+                <PlusIcon />
+              </span>
+              Add another list
+            </button>
+          )}
+        </div>
       </div>
       <CardModal />
-    </div>
+      <BoardMenu boardId={boardId} />
+    </>
   );
 }

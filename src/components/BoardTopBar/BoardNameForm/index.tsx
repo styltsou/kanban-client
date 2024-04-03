@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import classes from './index.module.scss';
-import { AutoResizeInput } from '@/components/ui/AutoResizeInput';
+// import { AutoResizeInput } from '@/components/ui/AutoResizeInput';
 import { useOnClickOutside } from '@/hooks/useOnClickOutside';
 import { useKeybinding } from '@/hooks/useKeybinding';
 

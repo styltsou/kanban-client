@@ -17,7 +17,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-
   // COLORS
   --accent-color: var(--violet-11);
   --accent-color-hover: var(--violet-9);
@@ -49,9 +48,10 @@
 
   // SIZES
   --navbar-height: 3rem;
-  --board-topbar-height: 3.7rem;
-  --sidebar-width: 17rem;
+  --board-topbar-height: 3.8rem;
+  --sidebar-width: 16.5rem;
   --sidebar-collapsed-width: 1rem;
+  --board-menu-width: 22rem;
   --column-width: 18rem;
 
   --padding-xs: 0.6rem;

@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useState } from 'react';
 import classes from './index.module.scss';
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import { ActionsMenu } from '../ActionsMenu';
@@ -7,7 +7,6 @@ export const Header: React.FC<{
   columnId: string;
   children: string;
 }> = ({ columnId, children }) => {
-  const inputRef = useRef<HTMLInputElement>(null);
   const [title, setTitle] = useState<string>(children);
   const [isTitleEditing, setIsTitleEditing] = useState<boolean>(false);
 
@@ -22,13 +21,6 @@ export const Header: React.FC<{
     setIsTitleEditing(false);
   };
 
-  useEffect(() => {
-    if (inputRef.current)
-      setTimeout(() => {
-        inputRef.current?.select();
-      }, 0);
-  }, []);
-
   return (
     <div className={classes.ColumnTitleWrapper}>
       {!isTitleEditing ? (
@@ -38,9 +30,9 @@ export const Header: React.FC<{
       ) : (
         <form className={classes.TitleForm} onSubmit={handleTitleSubmit}>
           <input
-            ref={inputRef}
             type="text"
             autoFocus
+            onFocus={e => e.target.select()}
             value={title}
             onChange={handleTitleChange}
             onBlur={() => setIsTitleEditing(false)}

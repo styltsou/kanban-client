@@ -10,9 +10,14 @@
 	color: black;
 	backdrop-filter: blur(0.4rem);
 
+	--color-text: black;
+	--color-transparent-hover: rgba(255, 255, 255, 0.3);
+
 	&.dark {
 		background-color: var(--color-board-topbar-dark);
 		color: white;
+		--color-text: white;
+		--color-transparent-hover: rgba(0, 0, 0, 0.2);
 	}
 
 	.HeightContainer {
@@ -20,10 +25,94 @@
 		height: calc(var(--board-topbar-height) - 2 * var(--padding-s));
 		display: flex;
 		align-items: center;
-		// justify-content: space-between;
+		justify-content: space-between;
 
 		.RightSection {
-			flex: 1;
+			height: 100%;
+			display: flex;
+			align-items: center;
+			gap: 0.6rem;
+
+			.Divider {
+				height: calc(100% - var(--padding-xs));
+				background-color: var(--color-text);
+				width: 1px;
+				opacity: 0.3;
+			}
+
+			.UserIconsContainer {
+				height: 100%;
+				display: flex;
+				align-items: center;
+
+				.UserIcon {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					height: calc(100% - 0.4rem);
+					aspect-ratio: 1;
+					border-radius: 100%;
+					font-size: 0.8rem;
+					font-weight: 600;
+					color: rgba(255, 255, 255, 0.8);
+					cursor: pointer;
+					transition: opacity 0.1s ease-in;
+
+					&:hover {
+						opacity: 0.75;
+					}
+
+					&:not(:first-child) {
+						margin-left: -0.3rem;
+					}
+				}
+			}
+
+			.ShareButton {
+				height: 100%;
+				padding: 0 var(--padding-s);
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				color: inherit;
+				font-size: 1rem;
+				font-weight: 600;
+				line-height: 1;
+				border-radius: 7px;
+				background-color: var(--bg-color);
+				cursor: pointer;
+				transition: background-color 0.1s ease-in;
+
+				&:hover {
+					background-color: var(--bg-color-hover);
+				}
+
+				&>svg {
+					width: 1em;
+					height: 1em;
+					margin-right: 0.4rem;
+				}
+			}
+
+			.BoardMenuButton {
+				color: inherit;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 100%;
+				aspect-ratio: 1;
+				border-radius: 7px;
+				cursor: pointer;
+
+				&>svg {
+					width: 1.4em;
+					height: 1.4em;
+				}
+
+				&:hover {
+					background-color: var(--color-transparent-hover);
+				}
+			}
 		}
 	}
 }

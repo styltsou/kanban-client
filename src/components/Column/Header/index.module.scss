@@ -5,53 +5,67 @@
 	justify-content: space-between;
 	padding: 0 var(--padding-xs);
 	font-size: 1rem;
-	font-weight: bold;
+
+	font-weight: 600;
 
 	.Title {
 		cursor: pointer;
 		font-size: inherit;
 		flex: 1;
-		padding: 0.1rem 0.3rem;
-		line-height: 1.5;
+		padding: 0.4rem var(--padding-xs);
+		// ! This is wome weird case where if the input and the 42 have same line height, the rendered height is diffenret
+		line-height: calc(100% + 4px);
+		border: 2px solid transparent;
 		color: var(--bg-color-text);
-	}
-
-	.IconButton {
-		border-radius: 7px;
-		display: inline-block;
-		height: 100%;
-		line-height: 0.8;
-		aspect-ratio: 1;
-		color: var(--bg-color-text);
-		padding: 0.4rem;
-		transition: background-color 0.1 ease-in;
-
-		&:hover {
-			background-color: var(--bg-color-hover);
-		}
 	}
 
 	.TitleForm {
 		flex: 1;
-		margin-right: 4px;
 
 		&>input {
+			display: block;
 			width: 100%;
 			font-size: inherit;
 			font-weight: inherit;
 			font-family: inherit;
+			line-height: 1;
 			color: var(--bg-color-text);
 			background-color: var(--card-color);
 			border-radius: 7px;
 			height: 100%;
-			padding: 0.25rem;
-			line-height: 1.2;
-			border: none;
-			outline: 2px solid transparent;
+			padding: 0.4rem var(--padding-xs);
+			border: 2px solid transparent;
+			outline: none;
 
 			&:focus {
-				outline-color: var(--accent-color);
+				border-color: var(--accent-color);
 			}
 		}
 	}
+
+	.IconButton {
+		line-height: 1;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		border-radius: 7px;
+		color: var(--bg-color-text);
+		transition: background-color 0.1 ease-in;
+		border: 2px solid transparent;
+		padding: 0.4rem;
+		font-size: inherit;
+
+		&>svg {
+			// line-height: 1;
+			width: 1em;
+			height: 1em
+		}
+
+		&:hover {
+			background-color: var(--bg-color-hover);
+			border-color: var(--bg-color-hover);
+		}
+	}
+
+
 }
