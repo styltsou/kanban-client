@@ -19,18 +19,21 @@ export const ShareBoardModal: React.FC<{ children: React.ReactNode }> = ({
       initials: 'ST',
       color: 'green',
       username: 'styltsou',
+      role: 'admin',
     },
     {
       name: 'Nikos Baltas',
       initials: 'NB',
       color: 'blue',
       username: 'nikosb',
+      role: 'observer',
     },
     {
       name: 'Evangelos Tsoumanes',
       initials: 'ET',
       color: 'brown',
       username: 'vag',
+      role: 'observer',
     },
   ];
 
@@ -101,9 +104,7 @@ export const ShareBoardModal: React.FC<{ children: React.ReactNode }> = ({
                   </button>
                 )}
               </div>
-              {isLinkCreated && (
-                <div className={classes.ItemDropdown}>dropdown</div>
-              )}
+              {isLinkCreated && <div>dropdow</div>}
             </div>
             {boardMembers.map(member => (
               <div key={member.initials} className={classes.Item}>

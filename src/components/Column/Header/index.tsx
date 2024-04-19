@@ -24,7 +24,12 @@ export const Header: React.FC<{
   return (
     <div className={classes.ColumnTitleWrapper}>
       {!isTitleEditing ? (
-        <h2 className={classes.Title} onClick={() => setIsTitleEditing(true)}>
+        <h2
+          className={classes.Title}
+          onClick={() => {
+            setIsTitleEditing(true);
+          }}
+        >
           {title}
         </h2>
       ) : (

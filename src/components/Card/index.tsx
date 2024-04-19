@@ -1,12 +1,24 @@
-import { MouseEvent, useState } from 'react';
+import {
+  MouseEvent,
+  forwardRef,
+  ForwardRefRenderFunction,
+  Ref,
+  useState,
+} from 'react';
+import { DraggableAttributes } from '@dnd-kit/core';
+import { SyntheticListenerMap } from '@dnd-kit/core/dist/hooks/utilities';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Pencil1Icon } from '@radix-ui/react-icons';
 import * as Portal from '@radix-ui/react-portal';
+
 import classes from './index.module.scss';
 import { useKeybinding } from '@/hooks/useKeybinding';
 import { CardForm } from '../CardForm';
 import { OptionsMenu } from './OptionsMenu';
 import { useNavigate } from '@tanstack/react-router';
+import { Card as CardType } from '@/types';
 
 const variants = {
   initial: { opacity: 0 },
@@ -14,9 +26,18 @@ const variants = {
   exit: { opacity: 0, transition: { duration: 0.1 } },
 };
 
-export const Card: React.FC<{ card: { id: string; description: string } }> = ({
-  card,
-}) => {
+type CardProps = {
+  card: CardType;
+  style?: { transform: string | undefined; transition: string | undefined };
+  isDragging?: boolean;
+  attributes?: DraggableAttributes;
+  listeners?: SyntheticListenerMap | undefined;
+};
+
+const CardComponent: ForwardRefRenderFunction<HTMLDivElement, CardProps> = (
+  { card, style, attributes, listeners, isDragging = false },
+  ref: Ref<HTMLDivElement>,
+) => {
   const navigate = useNavigate();
 
   const [isEditMenuOpen, setIsEditMenuOpen] = useState<boolean>(false);
@@ -67,7 +88,12 @@ export const Card: React.FC<{ card: { id: string; description: string } }> = ({
   return (
     <>
       <div
+        ref={ref}
+        {...attributes}
+        {...listeners}
+        style={style}
         className={classes.CardContainer}
+        data-dragging={isDragging}
         id={card.id}
         onClick={() =>
           navigate({
@@ -81,7 +107,7 @@ export const Card: React.FC<{ card: { id: string; description: string } }> = ({
           handleEditButtonClick(e);
         }}
       >
-        <p className={classes.Content}>{card.description}</p>
+        <p className={classes.Content}>{card.title}</p>
         <OptionsMenu
           cardId={card.id}
           open={isEditMenuOpen}
@@ -118,7 +144,7 @@ export const Card: React.FC<{ card: { id: string; description: string } }> = ({
                 }}
               >
                 <CardForm
-                  initialValue={card.description}
+                  initialValue={card.title}
                   onSubmit={handleSaveEdit}
                   isLoading={isSaveLoading}
                   autoSelect={true}
@@ -131,5 +157,39 @@ export const Card: React.FC<{ card: { id: string; description: string } }> = ({
         )}
       </AnimatePresence>
     </>
+  );
+};
+
+export const Card = forwardRef(CardComponent);
+
+export const SortableCard: React.FC<CardProps> = ({ card }) => {
+  const {
+    setNodeRef,
+    attributes,
+    listeners,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({
+    id: card.id,
+    data: {
+      type: 'Card',
+    },
+  });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
+  return (
+    <Card
+      ref={setNodeRef}
+      attributes={attributes}
+      listeners={listeners}
+      style={style}
+      card={card}
+      isDragging={isDragging}
+    />
   );
 };

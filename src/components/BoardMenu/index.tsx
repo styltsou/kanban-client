@@ -10,7 +10,7 @@ export const BoardMenu: React.FC<{ boardId: string }> = ({ boardId }) => {
   const currentSegment: string = 'Menu';
 
   return (
-    <aside className={classes.MenuContainer} data-isOpen={isOpen}>
+    <aside className={classes.MenuContainer} data-open={isOpen}>
       <div className={classes.MenuHeader}>
         {currentSegment !== 'Menu' ? (
           <button className={cn(classes.IconButton, classes.BackButton)}>

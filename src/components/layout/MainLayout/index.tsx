@@ -3,9 +3,7 @@ import classes from './index.module.scss';
 import { Navigation } from './Navigation';
 
 export const MainLayout = () => {
-  const user = {
-    username: 'styltsou',
-  };
+  const user: string | null = null;
 
   return (
     <div className={classes.AppWrapper}>

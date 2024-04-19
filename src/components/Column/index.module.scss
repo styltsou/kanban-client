@@ -11,6 +11,19 @@
 	max-height: 100%;
 	box-sizing: border-box;
 
+	&[data-dragging="true"] {
+		background-color: var(--transparent-bg-color) !important;
+
+		// Maybe too hacky but nevermind
+		& * {
+			user-select: none;
+			outline-color: transparent !important;
+			border-color: transparent !important;
+			background-color: transparent !important;
+			color: transparent !important;
+		}
+	}
+
 	.CardsList {
 		//* I dont use width 100% becuse for some reason tha margin overlfows the container
 		width: calc(100% - var(--padding-xs));

@@ -16,6 +16,17 @@
 		border-color: var(--accent-color);
 	}
 
+	&[data-dragging="true"] {
+		background-color: var(--bg-color-hover);
+
+		& * {
+			background-color: transparent !important;
+			color: transparent !important;
+			outline-color: transparent !important;
+			border-color: transparent !important;
+		}
+	}
+
 	.Content {
 		color: var(--card-color-text);
 		word-wrap: break-word;

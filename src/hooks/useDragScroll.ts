@@ -1,11 +1,13 @@
 import { useCallback, useEffect, useRef } from 'react';
 
-export const useDragScroll = <T extends HTMLElement>(): React.RefObject<T> => {
+export const useDragScroll = <T extends HTMLElement>(
+  enabled: boolean = true,
+): React.RefObject<T> => {
   const ref = useRef<T>(null);
 
   const handleMouseDown = useCallback(
     (e: MouseEvent) => {
-      if (!ref.current) {
+      if (!enabled || !ref.current) {
         return;
       }
 
@@ -17,7 +19,7 @@ export const useDragScroll = <T extends HTMLElement>(): React.RefObject<T> => {
       };
 
       const handleMouseMove = (e: MouseEvent) => {
-        if (!ref.current) return;
+        if (!enabled || !ref.current) return;
 
         const dx = e.clientX - startPos.x;
         const dy = e.clientY - startPos.y;
@@ -27,7 +29,7 @@ export const useDragScroll = <T extends HTMLElement>(): React.RefObject<T> => {
       };
 
       const handleMouseUp = () => {
-        if (!ref.current) return;
+        if (!enabled || !ref.current) return;
 
         document.removeEventListener('mousemove', handleMouseMove);
         document.removeEventListener('mouseup', handleMouseUp);
@@ -38,12 +40,12 @@ export const useDragScroll = <T extends HTMLElement>(): React.RefObject<T> => {
       document.addEventListener('mouseup', handleMouseUp);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [ref.current],
+    [ref.current, enabled],
   );
 
   const handleTouchStart = useCallback(
     (e: TouchEvent) => {
-      if (!ref.current) return;
+      if (!enabled || !ref.current) return;
 
       const touch = e.touches[0];
       const startPos = {
@@ -54,7 +56,7 @@ export const useDragScroll = <T extends HTMLElement>(): React.RefObject<T> => {
       };
 
       const handleTouchMove = (e: TouchEvent) => {
-        if (!ref.current) return;
+        if (!enabled || !ref.current) return;
 
         const touch = e.touches[0];
         const dx = touch.clientX - startPos.x;
@@ -65,7 +67,7 @@ export const useDragScroll = <T extends HTMLElement>(): React.RefObject<T> => {
       };
 
       const handleTouchEnd = () => {
-        if (!ref.current) return;
+        if (!enabled || !ref.current) return;
 
         document.removeEventListener('touchmove', handleTouchMove);
         document.removeEventListener('touchend', handleTouchEnd);
@@ -76,7 +78,7 @@ export const useDragScroll = <T extends HTMLElement>(): React.RefObject<T> => {
       document.addEventListener('touchend', handleTouchEnd);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [ref.current],
+    [ref.current, enabled],
   );
 
   const updateCursor = (element: HTMLElement) => {
@@ -90,7 +92,7 @@ export const useDragScroll = <T extends HTMLElement>(): React.RefObject<T> => {
   };
 
   useEffect(() => {
-    if (!ref.current) {
+    if (!enabled || !ref.current) {
       return;
     }
 
@@ -102,7 +104,7 @@ export const useDragScroll = <T extends HTMLElement>(): React.RefObject<T> => {
       ref!.current!.removeEventListener('touchstart', handleTouchStart);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ref.current]);
+  }, [ref.current, enabled]);
 
   return ref;
 };

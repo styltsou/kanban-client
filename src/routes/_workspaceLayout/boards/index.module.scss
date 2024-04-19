@@ -6,14 +6,13 @@
 	background-color: transparent;
 	padding-bottom: 0.3rem;
 
-	&[data-isOpen="true"] {
+	&[data-open="true"] {
 		width: calc(100% - var(--board-menu-width));
 	}
 
 	.BoardScrollContainer {
 		height: calc(100% - var(--board-topbar-height));
 		display: flex;
-		justify-content: flex-start;
 		align-items: flex-start;
 		gap: var(--padding-s);
 		padding: var(--padding-s);

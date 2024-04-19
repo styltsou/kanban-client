@@ -1,12 +1,31 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useMemo } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
+import {
+  DndContext,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragStartEvent,
+  DragEndEvent,
+  DragOverlay,
+  UniqueIdentifier,
+} from '@dnd-kit/core';
+import {
+  SortableContext,
+  horizontalListSortingStrategy,
+  arrayMove,
+} from '@dnd-kit/sortable';
+import { LexoRank } from 'lexorank';
+import { Portal } from '@radix-ui/react-portal';
 import { Cross1Icon, PlusIcon } from '@radix-ui/react-icons';
 import { z } from 'zod';
 
 import classes from './index.module.scss';
+import { useBoardStore } from '@/store/boardStore';
+import { List as ListType } from '@/types';
 import { BoardTopBar } from '@/components/BoardTopBar';
 import { BoardBackground } from '@/components/BoardBackground';
-import { Column } from '@/components/Column';
+import { List, SortableList } from '@/components/Column';
 import { Button } from '@/components/ui/Button';
 import { CardModal } from '@/components/CardModal';
 import { useKeybinding } from '@/hooks/useKeybinding';
@@ -15,165 +34,15 @@ import { useDragScroll } from '@/hooks/useDragScroll';
 import { BoardMenu } from '@/components/BoardMenu';
 import { useBoardMenu } from '@/contexts/BoardMenuContext';
 
-// ! WIP: STILL need to figure out the pattern that determines the isDark value. Does it take into account the theme too?
-// ! Test in actuall Trello with that color below to see the behavior.
-const background = {
-  isDark: true,
-  isSolid: false,
-  color: '#5356FF',
-  imageUrl:
-    'https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?q=80&w=2560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+const board = {
+  background: {
+    isDark: true,
+    isSolid: false,
+    color: '#5356FF',
+    imageUrl:
+      'https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?q=80&w=2560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  },
 };
-
-const cards = [
-  {
-    id: 'item1',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-  },
-  {
-    id: 'item2',
-    description:
-      'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-  },
-  {
-    id: 'item3',
-    description:
-      'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-  },
-  {
-    id: 'item4',
-    description:
-      'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-  },
-  {
-    id: 'item5',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-  },
-  {
-    id: 'item6',
-    description:
-      'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-  },
-  {
-    id: 'item7',
-    description:
-      'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-  },
-  {
-    id: 'item8',
-    description:
-      'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-  },
-  {
-    id: 'item9',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-  },
-  {
-    id: 'item10',
-    description:
-      'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-  },
-  {
-    id: 'item11',
-    description:
-      'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-  },
-  {
-    id: 'item12',
-    description:
-      'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-  },
-  {
-    id: 'item13',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-  },
-  {
-    id: 'item14',
-    description:
-      'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-  },
-  {
-    id: 'item15',
-    description:
-      'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-  },
-  {
-    id: 'item16',
-    description:
-      'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-  },
-  {
-    id: 'item17',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-  },
-  {
-    id: 'item18',
-    description:
-      'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-  },
-  {
-    id: 'item19',
-    description:
-      'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-  },
-  {
-    id: 'item20',
-    description:
-      'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-  },
-];
-
-const mockCols = [
-  {
-    title: 'Backlog',
-    cards: cards.slice(0, 8),
-  },
-  {
-    title: 'To Do',
-    cards: cards.slice(0, 4),
-  },
-  {
-    title: 'In Progress',
-    cards: cards.slice(0, 12),
-  },
-  {
-    title: 'In Progress1',
-    cards: cards.slice(0, 6),
-  },
-  {
-    title: 'In Progress8',
-    cards: cards.slice(0, 6),
-  },
-  {
-    title: 'In Progress2',
-    cards: cards.slice(0, 6),
-  },
-  {
-    title: 'In Progress3',
-    cards: cards.slice(0, 6),
-  },
-  // {
-  //   title: 'In Progress4',
-  //   cards: cards.slice(0, 6),
-  // },
-  // {
-  //   title: 'In Progress5',
-  //   cards: cards.slice(0, 6),
-  // },
-  // {
-  //   title: 'In Progress6',
-  //   cards: cards.slice(0, 6),
-  // },
-  // {
-  //   title: 'In Progress7',
-  //   cards: cards.slice(0, 6),
-  // },
-];
 
 const searchParamsSchema = z.object({
   cardId: z.string().optional(),
@@ -190,12 +59,108 @@ function Board(): JSX.Element {
   const { isOpen } = useBoardMenu();
 
   const columnFormRef = useRef<HTMLFormElement>(null);
-  const scrollContainerRef = useDragScroll<HTMLDivElement>();
 
-  const [columns, setColumns] = useState(mockCols);
+  const lists = useBoardStore(s => s.lists);
+  const setLists = useBoardStore(s => s.setLists);
+  const addList = useBoardStore(s => s.addList);
+
+  const listIds = useMemo(() => lists.map(list => list.id), [lists]);
+
+  const [activeListId, setActiveListId] = useState<UniqueIdentifier | null>(
+    null,
+  );
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 3,
+      },
+    }),
+  );
 
   const [isAddingColumn, setIsAddingColumn] = useState<boolean>(false);
-  const [columnTitle, setColumnTitle] = useState<string>('');
+  const [listName, setListName] = useState<string>('');
+
+  // *Card sorting is handled elsewhere using dndMonitor
+  const handleDragStart = (e: DragStartEvent) => {
+    const { active } = e;
+    if (active.data.current?.type === 'List') {
+      setActiveListId(active.id);
+    }
+  };
+
+  const handleDragEnd = (e: DragEndEvent) => {
+    const { active, over } = e;
+
+    if (active.data.current?.type === 'List') {
+      if (active.id !== over?.id) {
+        const oldIndex = lists.findIndex(
+          item => item.id == active.id.toString(),
+        );
+
+        const newIndex = lists.findIndex(
+          item => item.id == over?.id.toString(),
+        );
+
+        let sortedLists = arrayMove(lists, oldIndex, newIndex);
+
+        // Find the new rank of the list
+        // adjacent lists
+        const leftList = newIndex > 0 ? sortedLists[newIndex - 1] : undefined;
+        const rightList =
+          newIndex < lists.length - 1 ? sortedLists[newIndex + 1] : undefined;
+
+        const leftLexoRank = leftList ? LexoRank.parse(leftList.rank) : null;
+        const rightLexoRank = rightList ? LexoRank.parse(rightList.rank) : null;
+
+        let newRank = '';
+        if (!leftLexoRank && rightLexoRank)
+          newRank = rightLexoRank.genPrev().toString();
+
+        if (!rightLexoRank && leftLexoRank)
+          newRank = leftLexoRank.genNext().toString();
+
+        if (rightLexoRank && leftLexoRank)
+          newRank = leftLexoRank.between(rightLexoRank).toString();
+
+        sortedLists = sortedLists.map((list, idx) => {
+          return idx === newIndex ? { ...list, rank: newRank } : list;
+        });
+
+        setLists(sortedLists);
+      }
+
+      setActiveListId(null);
+    } else {
+      // TODO: Handle card reordering here or elsewhere using a hook?
+    }
+  };
+
+  const handleAddColumn = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (listName == '') return;
+
+    const list: ListType = {
+      id: crypto.randomUUID(),
+      name: listName,
+      color: '',
+      rank: '',
+      cards: [],
+    };
+
+    if (lists.length === 0) {
+      list.rank = LexoRank.middle().toString();
+    } else {
+      list.rank = LexoRank.parse(lists[lists.length - 1].rank)
+        .genNext()
+        .toString();
+    }
+
+    addList(list);
+
+    setListName('');
+  };
 
   /**
     // TODO: I could keep this but only if i find a way to
@@ -209,23 +174,8 @@ function Board(): JSX.Element {
   //   });
   // };
 
-  const handleAddColumn = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (columnTitle == '') return;
-
-    setColumns(prev => [
-      ...prev,
-      {
-        title: columnTitle,
-        cards: [],
-      },
-    ]);
-
-    setColumnTitle('');
-  };
-
   // Keep the addColumn form into view and focused
+
   useEffect(() => {
     if (columnFormRef.current) {
       columnFormRef.current.scrollIntoView({
@@ -235,32 +185,46 @@ function Board(): JSX.Element {
       const colFormInput = columnFormRef.current.querySelector('input');
       if (document.activeElement !== colFormInput) colFormInput?.focus();
     }
-  }, [isAddingColumn, columns.length]);
+  }, [isAddingColumn, lists.length]);
+
+  const scrollContainerRef = useDragScroll<HTMLDivElement>(false);
 
   useOnClickOutside(columnFormRef, () => setIsAddingColumn(false));
   useKeybinding('Escape', () => setIsAddingColumn(false));
 
   return (
-    <>
-      <div className={classes.Wrapper} data-isOpen={isOpen}>
+    <DndContext
+      sensors={sensors}
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+    >
+      <div className={classes.Wrapper} data-open={isOpen}>
         <BoardBackground
-          isSolid={background.isSolid}
-          color={background.color}
-          backgroundUrl={background.imageUrl}
+          isSolid={board.background.isSolid}
+          color={board.background.color}
+          backgroundUrl={board.background.imageUrl}
         />
         <BoardTopBar
           boardId="board32"
           boardName="Headless Commerce"
-          isDark={background.isDark}
+          isDark={board.background.isDark}
         />
         <div ref={scrollContainerRef} className={classes.BoardScrollContainer}>
-          {columns.map(column => (
-            <Column
-              key={column.title}
-              title={column.title}
-              cards={column.cards}
-            />
-          ))}
+          <SortableContext
+            items={listIds}
+            strategy={horizontalListSortingStrategy}
+          >
+            {lists.map(column => (
+              <SortableList key={column.id} list={column} />
+            ))}
+          </SortableContext>
+          <Portal>
+            <DragOverlay>
+              {activeListId ? (
+                <List list={lists.find(list => list.id === activeListId)!} />
+              ) : null}
+            </DragOverlay>
+          </Portal>
           {isAddingColumn ? (
             <form
               ref={columnFormRef}
@@ -270,8 +234,8 @@ function Board(): JSX.Element {
               <input
                 autoFocus={true}
                 placeholder="Enter list name"
-                value={columnTitle}
-                onChange={e => setColumnTitle(e.target.value)}
+                value={listName}
+                onChange={e => setListName(e.target.value)}
               />
               <div className={classes.AddColumnFormButtonsWrapper}>
                 <Button type="submit">Add list</Button>
@@ -295,6 +259,6 @@ function Board(): JSX.Element {
       </div>
       <CardModal />
       <BoardMenu boardId={boardId} />
-    </>
+    </DndContext>
   );
 }

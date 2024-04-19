@@ -9,7 +9,7 @@
 	color: var(--bg-color-text);
 	transform: translateX(var(--board-menu-width));
 
-	&[data-isOpen="true"] {
+	&[data-open="true"] {
 		transform: translateX(0);
 	}
 
